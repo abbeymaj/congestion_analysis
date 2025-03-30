@@ -7,4 +7,6 @@ flask_cors
 pytest
 pyarrow
 fastparquet
+mlflow
+dagshub
 #-e .

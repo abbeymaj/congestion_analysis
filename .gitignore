@@ -135,6 +135,7 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+venv_congestion/
 
 # Spyder project settings
 .spyderproject
@@ -172,3 +173,9 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+# Logs
+.log
+src/*[Ll]ogs
+logs/
+LOG_FILE_PATH

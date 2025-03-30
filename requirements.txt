@@ -1,0 +1,10 @@
+numpy
+pandas
+scikit-learn
+xgboost
+Flask
+flask_cors
+pytest
+pyarrow
+fastparquet
+#-e .

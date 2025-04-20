@@ -9,4 +9,5 @@ pyarrow
 fastparquet
 mlflow
 dagshub
+feature-engine
 #-e .

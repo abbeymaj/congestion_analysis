@@ -2,7 +2,6 @@
 import os
 import sys
 import pandas as pd
-import sklearn
 from sklearn import set_config
 set_config(transform_output='pandas')
 from src.exception import CustomException

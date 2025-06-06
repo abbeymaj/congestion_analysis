@@ -1,7 +1,12 @@
 # Importing packages
 import sys
+import os
+import json
+import datetime
 import numpy as np
 import pandas as pd
+import pathlib
+from src.exception import CustomException
 from sklearn.base import BaseEstimator, TransformerMixin
 from feature_engine.encoding import MeanEncoder
 
@@ -192,3 +197,73 @@ def drop_non_essential_features(df):
     
     except Exception as e:
         raise CustomException(e, sys)
+
+# Creating a function to save the run parameters as a json file
+def save_run_params(run_params):
+    '''
+    This function saves the run parameters as a json file in the run_config folder. 
+    ========================================================================================
+    ---------------------
+    Parameters:
+    ---------------------
+    run_params : dict - This is the dictionary containing the run parameters.
+    
+    ---------------------
+    Returns:
+    ---------------------
+    Saves the run parameters as a json file into the run_config folder
+    '''
+    now = datetime.datetime.now().strftime('%Y%m%d')
+    file_path = pathlib.Path().cwd() / 'run_config' / f'run_params_{now}.json'
+    with open(file_path, 'w') as file_obj:
+        json.dump(run_params, file_obj)
+        
+
+# Creating a function to load the run parameters json file.
+def load_run_params(directory='run_config'):
+    '''
+    This function loads the run parameters as a json file, which is present
+    in the run_config folder. 
+    ========================================================================================
+    ---------------------
+    Parameters:
+    ---------------------
+    directory : str - This is the name of the directory in which the run parameters json
+    file is stored.
+    
+    ---------------------
+    Returns:
+    ---------------------
+    run_parameters : json - This is the run parameters json file. 
+    '''
+    dir_path = pathlib.Path().cwd() / directory
+    json_files = os.listdir(dir_path)
+    latest_file = None
+    latest_date = None
+    for file_name in json_files:
+        date_str = file_name.split('_')[2].split('.')[0]
+        file_date = datetime.datetime.strptime(date_str, '%Y%m%d')
+        if not latest_date or file_date > latest_date:
+            latest_date = file_date
+            latest_file = dir_path / file_name
+    return latest_file
+
+
+# Creating a function to read the JSON file
+def read_json_file(file_path):
+    '''
+    This function reads the run parameters JSON file and returns the contents of the file.
+    ========================================================================================
+    ---------------------
+    Parameters:
+    ---------------------
+    file_path : str - This is the path to the run parameters json file.
+    
+    ---------------------
+    Returns:
+    ---------------------
+    run_parameters : json - This is the run pararmeters json file.
+    '''
+    with open(file_path, 'r') as file_obj:
+        data = json.load(file_obj)
+    return data

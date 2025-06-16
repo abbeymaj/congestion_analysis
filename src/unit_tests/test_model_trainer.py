@@ -2,6 +2,10 @@
 import os
 import pytest
 import pandas as pd
+import dagshub
+import mlflow
+from mlflow import MlflowClient
+from src.utils import load_run_params, read_json_file
 from xgboost import XGBRegressor
 from src.components.config_entity import StoreFeatureConfig
 from src.components.model_trainer import ModelTrainer
@@ -56,3 +60,18 @@ def test_initiate_model_training_without_prediction():
         assert best_model is not None
         assert best_params is not None
         assert metric is not None
+
+# Verifying that the model and model metadata can be fetched from the model registry
+def test_get_model_data():
+    run_params_json = load_run_params()
+    run_data = read_json_file(run_params_json)
+    dagshub.init(repo_owner='abbeymaj', repo_name='congestion_analysis', mlflow=True)
+    model_uri = 'https://dagshub.com/abbeymaj/congestion_analysis.mlflow'
+    mlflow.set_tracking_uri(model_uri)
+    client = MlflowClient(tracking_uri=model_uri)
+    model_name = 'training_model_1'
+    latest_versions_metadata = client.get_latest_versions(name=model_name)
+    my_model_uri = run_data['model_uri']
+    model = mlflow.pyfunc.load_model(my_model_uri)
+    assert latest_versions_metadata is not None
+    assert model is not None

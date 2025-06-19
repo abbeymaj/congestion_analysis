@@ -2,7 +2,7 @@
 import sys
 import os
 import json
-import datetime
+from datetime import datetime
 import numpy as np
 import pandas as pd
 import pathlib
@@ -267,3 +267,21 @@ def read_json_file(file_path):
     with open(file_path, 'r') as file_obj:
         data = json.load(file_obj)
     return data
+
+# Creating a function to capture the current time
+def get_current_time():
+    '''
+    This function captures the time when the user enters data on the website and returns 
+    it in the format of YYYY-MM-DD HH:MM:SS. The function also converts the time string 
+    into a datetime object.
+    ========================================================================================
+    ---------------------
+    Returns:
+    ---------------------
+    current_time : datetime - This is the time at which the user entered data on the
+    website.
+    ========================================================================================
+    '''
+    current_time = str(datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+    current_time_conv = datetime.strptime(current_time, '%Y-%m-%d %H:%M:%S')
+    return current_time_conv

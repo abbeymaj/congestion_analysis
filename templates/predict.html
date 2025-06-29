@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Predicting Traffic Congestion</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    </head>
+    <body>
+        <a href="https://github.com/abbeymaj/congestion_analysis" class="top-left-link" target="_blank">GitHub Repository Link</a>
+        <h1>Predicting Traffic Congestion</h1>
+        <img src="{{ url_for('static', filename='images/traffic.jpg') }}" alt="main image" class="profile">
+        <div class="form-box">
+            <form action="{{ url_for('predict_datapoint') }}" method="POST">
+                <div class="form-group">
+                    <label for="x">x</label>
+                    <input type="number" id="x" name="x" min="0" max="2" placeholder="Enter 0, 1 or 2" required>
+                </div>
+                <div class="form-group">
+                    <label for="y">y</label>
+                    <input type="number" id="y" name="y" min="0" max="3" placeholder="Enter 0, 1, 2 or 3" required>
+                </div>
+                <div class="form-group">
+                    <label for="direction">Direction</label>
+                    <select id="direction" name="direction" placeholder="Select a direction" required>
+                        <option value="EB">EB</option>
+                        <option value="NB">NB</option>
+                        <option value="SB">SB</option>
+                        <option value="WB">WB</option>
+                        <option value="NE">NE</option>
+                        <option value="SW">SW</option>
+                        <option value="NW">NW</option>
+                        <option value="SE">SE</option>
+                    </select>
+                </div>
+                <div style="clear:both;">
+                    <input type="submit" value="Predict" class="button">
+                </div>
+            </form>
+        </div>
+        <h2>
+            Based on your input, the congestion is predicted to be {{ results }}
+        </h2>
+    </body>
+</html>

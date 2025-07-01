@@ -213,7 +213,7 @@ def save_run_params(run_params):
     ---------------------
     Saves the run parameters as a json file into the run_config folder
     '''
-    now = datetime.datetime.now().strftime('%Y%m%d')
+    now = datetime.now().strftime('%Y%m%d')
     file_path = pathlib.Path().cwd() / 'run_config' / f'run_params_{now}.json'
     with open(file_path, 'w') as file_obj:
         json.dump(run_params, file_obj)
@@ -242,7 +242,7 @@ def load_run_params(directory='run_config'):
     latest_date = None
     for file_name in json_files:
         date_str = file_name.split('_')[2].split('.')[0]
-        file_date = datetime.datetime.strptime(date_str, '%Y%m%d')
+        file_date = datetime.strptime(date_str, '%Y%m%d')
         if not latest_date or file_date > latest_date:
             latest_date = file_date
             latest_file = dir_path / file_name

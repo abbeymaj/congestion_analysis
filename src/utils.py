@@ -211,7 +211,8 @@ def save_run_params(run_params):
     ---------------------
     Returns:
     ---------------------
-    Saves the run parameters as a json file into the run_config folder
+    Saves the run parameters as a json file into the run_config folder.
+    ========================================================================================
     '''
     now = datetime.now().strftime('%Y%m%d')
     file_path = pathlib.Path().cwd() / 'run_config' / f'run_params_{now}.json'
@@ -234,7 +235,8 @@ def load_run_params(directory='run_config'):
     ---------------------
     Returns:
     ---------------------
-    run_parameters : json - This is the run parameters json file. 
+    run_parameters : json - This is the run parameters json file.
+    ========================================================================================
     '''
     dir_path = pathlib.Path().cwd() / directory
     json_files = os.listdir(dir_path)
@@ -263,6 +265,7 @@ def read_json_file(file_path):
     Returns:
     ---------------------
     run_parameters : json - This is the run pararmeters json file.
+    =========================================================================================
     '''
     with open(file_path, 'r') as file_obj:
         data = json.load(file_obj)

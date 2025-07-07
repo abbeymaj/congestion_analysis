@@ -45,6 +45,7 @@ def predict_datapoint():
         return render_template('predict.html', results=preds, pred_df=df)
 
 # Creating a function to return the prediction as an API call
+@app.route('/api/predict', methods=['POST'])
 def fetch_prediction_api():
     '''
     This function will take the data entered by the user and then 
